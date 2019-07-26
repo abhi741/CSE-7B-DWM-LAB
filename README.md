@@ -12,4 +12,4 @@
   * Problem statement for the Practical
   * Question followed by Query and Output
 
-Refer sample file for the format
+Refer sample file **LAB_02_74_Rakshit.sql** for the format.
