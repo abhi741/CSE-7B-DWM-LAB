@@ -1,22 +1,17 @@
 -- Practical 2 
-
 /*
 
 Problem Statement: Write and Execute SQL aggregation queries for data warehouse. '
 */
-
-
 
 /*
 
 Name				: Ashish Prasad
 Roll No				: 50
 Batch 				: B2
-Date of Execution 	: 16 July 2019
+Date of Execution 		: 16 July 2019
 
 */
-
-
 
 -- Question 1
 
