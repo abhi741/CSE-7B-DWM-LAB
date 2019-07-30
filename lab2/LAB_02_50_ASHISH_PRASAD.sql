@@ -3,7 +3,6 @@
 /*
 
 Problem Statement: Write and Execute SQL aggregation queries for data warehouse. '
-
 */
 
 
@@ -11,11 +10,8 @@ Problem Statement: Write and Execute SQL aggregation queries for data warehouse.
 /*
 
 Name				: Ashish Prasad
-
 Roll No				: 50
-
 Batch 				: B2
-
 Date of Execution 	: 16 July 2019
 
 */
@@ -27,19 +23,12 @@ Date of Execution 	: 16 July 2019
 /*
 
 Find the total sales by country_id and channel_desc for the US and GB through 
-
 the Internet and direct sales in September 2000 and October 2000 using ROLL-UP Extension. 
-
 The query should return the following: 
 
- 
-
  1. The aggregation rows that would be produced by GROUP BY , 
-
  2. The First-level subtotals aggregating across country_id for each combination of channel_desc and calendar_month.
-
  3. Second-level subtotals aggregating across calendar_month_desc and country_id for each channel_desc value.
-
  4. A grand total row. 
 
 */
