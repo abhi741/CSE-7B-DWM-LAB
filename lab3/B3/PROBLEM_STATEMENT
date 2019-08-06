@@ -1,0 +1,9 @@
+Aim:
+To execute following data partitioning technique in data warehouse. Operations can be demonstrated on any schema.
+a. Range Partitioning
+b. List Partitioning
+c. Hash Partitioning
+d. Interval Partitioning
+e. Reference Partitioning
+f. Virtual Column based partitioning
+g. Composite Partitioning
