@@ -20,7 +20,7 @@ Roll No				: 50
 
 Batch 				: B2
 
-Date of Execution 	: 23,30 July And 06 August 2019
+Date of Execution 		: 23,30 July And 06 August 2019
 
 */
 -----------------------------------------------------------------------
