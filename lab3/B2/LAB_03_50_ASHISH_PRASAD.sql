@@ -39,15 +39,15 @@ FETCH NUMROWS.
  
  /*Q1.  Write a query to create range portioned table: 
  
-  Creates a table named- Sales consisting of four partitions, 
+ Creates a table named- Sales consisting of four partitions, 
  one for each quarter of sales. The columns sale_year, sale_month, 
  and sale_day are the partitioning columns, while 
  their values constitute the partitioning key of a specific row.  
  
-  Each partition is given a name (sales_q1, sales_q2, ...), 
+ Each partition is given a name (sales_q1, sales_q2, ...), 
  and each partition is contained in a separate tablespace (tsa, tsb, ...) 
  
-  The columns for table must be prod_id, cust_id, promo_id, quantify sold, amount_sold – 
+ The columns for table must be prod_id, cust_id, promo_id, quantify sold, amount_sold – 
  all in number format and time_id. 
  
 */ 
