@@ -790,27 +790,27 @@ SQL> CREATE TABLE quarterly_regional_sales
   5    PARTITION BY RANGE (time_id)
   6      SUBPARTITION BY LIST (cust_state)
   7        (PARTITION q1 VALUES LESS THAN (TO_DATE('01-JAN-2005','DD-MON-YYYY'))
-  8           (SUBPARTITION q1_west VALUES (‘MH’, ‘GJ’),
-  9            SUBPARTITION q1_south VALUES (‘TN’, ‘AP’),
- 10            SUBPARTITION q1_north VALUES (‘UP’, ‘HP’),
+  8           (SUBPARTITION q1_west VALUES (Â‘MHÂ’, Â‘GJÂ’),
+  9            SUBPARTITION q1_south VALUES (Â‘TNÂ’, Â‘APÂ’),
+ 10            SUBPARTITION q1_north VALUES (Â‘UPÂ’, Â‘HPÂ’),
  11            SUBPARTITION q1_DEFAULT VALUES (default)
  12           ),
  13         PARTITION q2 VALUES LESS THAN ( TO_DATE('01-JAN-2010','DD-MON-YYYY'))
- 14           (SUBPARTITION q2_west VALUES (‘MH’, ‘GJ’),
- 15            SUBPARTITION q2_south VALUES (‘TN’, ‘AP’),
- 16            SUBPARTITION q2_north VALUES (‘UP’, ‘HP’),
+ 14           (SUBPARTITION q2_west VALUES (Â‘MHÂ’, Â‘GJÂ’),
+ 15            SUBPARTITION q2_south VALUES (Â‘TNÂ’, Â‘APÂ’),
+ 16            SUBPARTITION q2_north VALUES (Â‘UPÂ’, Â‘HPÂ’),
  17            SUBPARTITION q2_DEFAULT VALUES (default)
  18           ),
  19         PARTITION q3 VALUES LESS THAN (TO_DATE('01-JAN-2015','DD-MON-YYYY'))
- 20           (SUBPARTITION q3_west VALUES (‘MH’, ‘GJ’),
- 21            SUBPARTITION q3_south VALUES (‘TN’, ‘AP’),
- 22            SUBPARTITION q3_north VALUES (‘UP’, ‘HP’),
+ 20           (SUBPARTITION q3_west VALUES (Â‘MHÂ’, Â‘GJÂ’),
+ 21            SUBPARTITION q3_south VALUES (Â‘TNÂ’, Â‘APÂ’),
+ 22            SUBPARTITION q3_north VALUES (Â‘UPÂ’, Â‘HPÂ’),
  23            SUBPARTITION q3_DEFAULT VALUES (default)
  24           ),
  25         PARTITION q4 VALUES LESS THAN (maxvalue)
- 26           (SUBPARTITION q4_west VALUES (‘MH’, ‘GJ’),
- 27            SUBPARTITION q4_south VALUES (‘TN’, ‘AP’),
- 28            SUBPARTITION q4_north VALUES (‘UP’, ‘HP’),
+ 26           (SUBPARTITION q4_west VALUES (Â‘MHÂ’, Â‘GJÂ’),
+ 27            SUBPARTITION q4_south VALUES (Â‘TNÂ’, Â‘APÂ’),
+ 28            SUBPARTITION q4_north VALUES (Â‘UPÂ’, Â‘HPÂ’),
  29            SUBPARTITION q4_DEFAULT VALUES (default)
  30           )
  31        );
@@ -1125,4 +1125,57 @@ USERS                          Q4_DEFAULT                     Q4                
 
 16 rows selected.
 
-SQL>
+
+--Range - Range
+create table customer_range_range
+( cust_id number,
+  cust_name varchar2(10),
+  cust_state varchar2(10),
+  amount_sold number,
+  time_id date )
+PARTITION BY RANGE (time_id)
+        SUBPARTITION BY RANGE (cust_id)
+          (PARTITION old VALUES LESS THAN (TO_DATE('01-JAN-2005','DD-MON-YYYY'))
+             (subpartition old_s1 values less than(10),
+			  subpartition old_s2 values less than(20),
+		      subpartition old_other values less than(maxvalue)
+            ),
+          PARTITION acquired VALUES LESS THAN ( TO_DATE('01-JAN-2010','DD-MON-YYYY'))
+            (subpartition acquired_s1 values less than(10),
+			  subpartition acquired_s2 values less than(20),
+		      subpartition acquired_other values less than(maxvalue)
+            ),
+          PARTITION recent VALUES LESS THAN (TO_DATE('01-JAN-2015','DD-MON-YYYY'))
+            (subpartition recent_s1 values less than(10),
+			  subpartition recent_s2 values less than(20),
+		      subpartition recent_other values less than(maxvalue)
+            ),
+          PARTITION p VALUES LESS THAN (maxvalue)
+            (subpartition p_s1 values less than(10),
+			  subpartition p_s2 values less than(20),
+		      subpartition p_other values less than(maxvalue)
+            )
+         );
+
+insert into customer_range_range values(1,'kartikeyan','mh',5,'01-feb-2009');
+insert into customer_range_range values(1,'gupta','up',11,'01-feb-2004');
+insert into customer_range_range values(1,'bahul','tn',55,'01-feb-2019');
+exec dbms_stats.gather_table_stats('kartikeyan','CUSTOMER_RANGE_RANGE');
+ select partition_name,tablespace_name,high_value,num_rows from user_tab_partitions where table_name='CUSTOMER_RANGE_RANGE';
+ 
+ /*OUTPUT
+PARTITION_NAME                 TABLESPACE_NAME                HIGH_VALUE                                                                         NUM_ROWS
+------------------------------ ------------------------------ -------------------------------------------------------------------------------- ----------
+OLD                            USERS                          TO_DATE(' 2005-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIA          1
+ACQUIRED                       USERS                          TO_DATE(' 2010-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIA          1
+RECENT                         USERS                          TO_DATE(' 2015-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIA          0
+P                              USERS                          MAXVALUE                                                                                  1
+*/
+
+select * from customer_range_range subpartition(old_s1);
+/*
+
+   CUST_ID CUST_NAME  CUST_STATE AMOUNT_SOLD TIME_ID
+---------- ---------- ---------- ----------- ---------
+         1 gupta      up                  11 01-FEB-04
+		 */
