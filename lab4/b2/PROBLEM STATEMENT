@@ -1,0 +1,100 @@
+
+Problem Statement: 
+
+Write and Execute SQL indexing queries for 
+data warehouse.
+
+/*Q1. Create individual b-tree indexes on the following columns of the table:
+customers_copy_btree
+(a) cust_gender
+(b) cust_year_of_birth
+(c) cust_last_name
+(d) cust_street_address
+How long does it take to create the indexes?*/
+
+/*Q2. Create bitmap indexes on the above columns. How long does it take to create bitmap
+indexes? Compare it with the results of btree index creation.*/
+
+
+/*Q3. Do as directed:
+(a) Find the size of each segment: customers_copy_bitmap and customers_copy_btree
+(b) The b-tree index range for high and low cardinality address index.
+(c) The bitmap index range for high and low cardinality address index.
+*/
+
+
+/*Q4. Use year of birth, which had 75 different values in our test data as filter column. Also show
+the execution plan for both indexes- btree and bitmap. Compare the cost of the execution plan
+for b-tree and bitmap indexes.*/
+
+/*Q5. Show that update to the bitmap indexed column takes a bit longer than the b-tree indexed
+column.
+(a) Create new indexes on cust_id column of btree and bitmap table.
+(b) Set the timing on
+(c) Write a PL/SQL procedure for each table as directed:
+	i. Create new columns- upd_cust_id and cust_yob_value with number format.
+	ii. In loop of 500 allot random values to both columns
+	iii. set cust_year_of_birth = cust_yob_value and consider cust_id = upd_cust_id
+(d) What is the size of the indexes compared to the size as before the updates took place.
+*/
+
+
+/*Q6. Comparison of time for index creation for normal bitmap index and join bitmap index.
+Do as directed:
+a) Create table customers_bijx_test_bitmap from customers & sales_bijx_test_bitmap as
+from sales
+b) create bitmap index sales_bijx_test_bitmap_bix1 on sales_bijx_test_bitmap table and
+cust_id column, and bitmap index cust_bijx_test_bitmap_bix1 on
+customers_bijx_test_bitmap table and cust_last_name column.
+What is the elapsed time for each index creation?
+c) Create table customers_bijx_test_bitjoin from customers and Create table
+sales_bijx_test_bitjoin from Sales and add constraint of primary key to cust_id column of
+cust_bijx_test_bitjoin table.
+d) (a) create bitmap index named sales_bijx_test_bitjoin_bjx1 using sales_bijx_test_bitjoin &
+customers_bijx_test_bitjoin.cust_id tables.
+
+(b) create bitmap index named sales_bijx_test_bitjoin_bjx2 using tables
+sales_bijx_test_bitjoin and customers_bijx_test_bitjoin.cust_last_name
+Conclude which index creation takes more time.
+*/
+
+
+---COMPRESSED INDEX --
+/*
+1. Create table Student(StudId, StudName)
+2. Add 10 Rows
+3. Define Index on StudName(First Name and Last Name)
+4. Get the Statistics of Index
+5. Now add about 10000 rows that will have same last name
+6. Get the Statistics of Index
+7. Drop Index
+8. Create Compressed Index
+9. Get the Statistics of Index
+10. Compare statics and give your comments*/
+
+--FUNCTION BASED INDEX 
+/*Function Based Indexes:
+1. Create function based index on Employee table of HR schema. Function should be on
+salary attribute based on commission percentage.
+Find out list of employees having commission percentage less than 50000.
+2. Create function based index on employee name for Upper and lower function.
+3. Create user table with attributes (UserId, UserName, Gender)
+4. Insert 10000 records in user table
+5. Build regular index on Username
+6. Build function based index on user name based on Upper function
+7. Compare the response time and comment.
+*/
+
+--INDEX ORGANIZED TABLE
+
+/*1. Create an IOT look_ups with the attributes (lookup_code, lookup_value,
+lookup_description) in tablespace ts_lookup.
+Constraint: lookup_code should be primary key
+PctThreshold is 20 and and lookup_description should be in overflow area.
+Overflow should be in ts_overflow tablespace.
+2. Create a Index Organized Table(IOT) emp_iot based on hr.employees
+3. Create a Index Organized Table(IOT) emp101_emp based on hr.employees. Place the
+column hiredate in overflow area.
+4. Compare the timings of executing select all from employees,emp_iot, and emp101_iot.
+Comment on your observations.*/
+
