@@ -7,8 +7,8 @@ data warehouse.
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
 /*
-Name				: Ashish Prasad
-Roll No				: 50
+Name				: Adnan Husain
+Roll No				: 43
 Batch 				: B2
 Date of Execution 	: 13 & 20 August 2019
 */
